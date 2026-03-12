@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ResumeIQ | AI Resume ATS Scanner</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background: radial-gradient(circle at top left,#0f172a,#020617 70%);
+color:#f1f5f9;
+}
+
+/* NAVBAR */
+
+.navbar{
+padding:22px 80px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(15,23,42,0.8);
+backdrop-filter:blur(14px);
+border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.logo{
+font-size:26px;
+font-weight:800;
+background:linear-gradient(90deg,#3b82f6,#22d3ee);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.nav-links a{
+margin:0 20px;
+text-decoration:none;
+color:#94a3b8;
+font-weight:500;
+}
+
+.nav-links a:hover{
+color:#38bdf8;
+}
+
+.auth-buttons a{
+margin-left:15px;
+padding:10px 20px;
+border-radius:10px;
+font-weight:600;
+text-decoration:none;
+}
+
+.login-btn{
+border:1px solid #3b82f6;
+color:#3b82f6;
+}
+
+.signup-btn{
+background:linear-gradient(135deg,#3b82f6,#2563eb);
+color:white;
+}
+
+/* HERO SECTION */
+
+.hero{
+text-align:center;
+padding:80px 20px 40px;
+}
+
+.hero h1{
+font-size:48px;
+font-weight:800;
+background:linear-gradient(90deg,#3b82f6,#22d3ee);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+margin-top:20px;
+font-size:18px;
+color:#94a3b8;
+max-width:650px;
+margin-left:auto;
+margin-right:auto;
+}
+
+.hero-btn{
+margin-top:35px;
+display:inline-block;
+padding:16px 40px;
+background:linear-gradient(135deg,#3b82f6,#22d3ee);
+color:white;
+border-radius:12px;
+text-decoration:none;
+font-weight:700;
+box-shadow:0 10px 40px rgba(59,130,246,0.4);
+}
+
+/* ANALYZER */
+
+.container{
+width:60%;
+margin:80px auto;
+padding:60px;
+background:rgba(30,41,59,0.65);
+backdrop-filter:blur(20px);
+border-radius:24px;
+border:1px solid rgba(255,255,255,0.06);
+}
+
+.container h1{
+text-align:center;
+font-size:40px;
+margin-bottom:35px;
+}
+
+.upload-box{
+border:2px dashed rgba(59,130,246,0.5);
+padding:50px;
+border-radius:18px;
+text-align:center;
+margin-bottom:25px;
+cursor:pointer;
+}
+
+textarea{
+width:100%;
+height:160px;
+padding:16px;
+border-radius:12px;
+border:none;
+background:#020617;
+color:white;
+margin-top:20px;
+}
+
+button{
+width:100%;
+margin-top:25px;
+padding:16px;
+border-radius:12px;
+border:none;
+font-weight:700;
+font-size:16px;
+background:linear-gradient(135deg,#3b82f6,#2563eb);
+color:white;
+cursor:pointer;
+}
+
+/* RESULTS */
+
+.results{
+margin-top:40px;
+padding:30px;
+border-radius:18px;
+background:#020617;
+}
+
+.results h2{
+color:#22c55e;
+}
+
+/* HOW IT WORKS */
+
+.how-it-works{
+width:70%;
+margin:120px auto;
+text-align:center;
+}
+
+.how-it-works h1{
+font-size:40px;
+margin-bottom:50px;
+}
+
+.steps{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+}
+
+.step{
+background:rgba(30,41,59,0.7);
+padding:30px;
+border-radius:18px;
+}
+
+.step h2{
+color:#3b82f6;
+margin-bottom:10px;
+}
+
+/* CREATE RESUME */
+
+.create-resume-section{
+width:60%;
+margin:80px auto 120px;
+padding:60px;
+text-align:center;
+background:linear-gradient(135deg,#1e293b,#0f172a);
+border-radius:24px;
+}
+
+.create-resume-section h2{
+font-size:30px;
+color:#3b82f6;
+}
+
+.create-resume-section p{
+margin:15px 0 35px;
+color:#94a3b8;
+}
+
+.create-btn{
+padding:16px 50px;
+border-radius:12px;
+background:linear-gradient(135deg,#22d3ee,#3b82f6);
+color:white;
+text-decoration:none;
+font-weight:700;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.steps{
+grid-template-columns:1fr;
+}
+
+.container,
+.create-resume-section{
+width:90%;
+padding:35px;
+}
+
+.navbar{
+padding:20px 30px;
+}
+
+.hero h1{
+font-size:36px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="logo">ResumeIQ</div>
+
+<div class="nav-links">
+<a href="resumeanalyzer.html">Home</a>
+<a href="dashboard.html">Dashboard</a>
+</div>
+
+<div class="auth-buttons">
+<a href="loginpage.html" class="login-btn">Login</a>
+<a href="signup.html" class="signup-btn">Sign Up</a>
+</div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<h1>Check Your Resume Before Recruiters Do</h1>
+
+<p>
+Upload your resume, compare it with the job description,
+and get an ATS compatibility score with powerful suggestions
+to improve your chances of getting hired.
+</p>
+
+
+</section>
+
+<!-- RESUME ANALYZER -->
+
+<div class="container">
+
+<h1>Resume ATS Scanner</h1>
+
+<form>
+
+<div class="upload-box">
+📄 Drag & Drop Resume Here or Click to Upload
+<input type="file" style="margin-top:15px">
+</div>
+
+<textarea placeholder="Paste Job Description Here..."></textarea>
+
+<button>Analyze Resume</button>
+
+</form>
+
+<div class="results">
+
+<h2>Match Score: 0%</h2>
+
+<h3>Matched Skills</h3>
+<p>NONE</p>
+
+<h3>Missing Skills</h3>
+<p>NONE</p>
+
+<h3>Suggestions</h3>
+<p>No suggestions yet</p>
+
+</div>
+
+</div>
+
+<!-- HOW IT WORKS -->
+
+<div class="how-it-works">
+
+<h1>How ResumeIQ Works</h1>
+
+<div class="steps">
+
+<div class="step">
+<h2>1. Upload Resume</h2>
+<p>Upload your resume in seconds using our ATS scanner.</p>
+</div>
+
+<div class="step">
+<h2>2. Paste Job Description</h2>
+<p>Add the job description you are applying for.</p>
+</div>
+
+<div class="step">
+<h2>3. Get ATS Score</h2>
+<p>Our AI analyzes your resume and shows your ATS match score.</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- CREATE RESUME -->
+
+<div class="create-resume-section">
+
+<h2>Don’t Have a Resume Yet?</h2>
+
+<p>
+Create a professional ATS-friendly resume in minutes using our smart builder.
+</p>
+
+<a href="createResume.html" class="create-btn">Create Resume</a>
+
+</div>
+
+</body>
+</html>
