@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<title>ATS Dashboard - Settings</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+/* BLUE ATS THEME */
+
+:root{
+--bg:#0b1120;
+--sidebar:#0f172a;
+--card:#1e293b;
+--text:#e2e8f0;
+--muted:#94a3b8;
+--accent:#3b82f6;
+}
+
+body{
+display:flex;
+height:100vh;
+background:var(--bg);
+color:var(--text);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:240px;
+background:var(--sidebar);
+color:white;
+padding:30px 20px;
+display:flex;
+flex-direction:column;
+}
+
+.logo{
+font-size:22px;
+font-weight:600;
+margin-bottom:40px;
+color:#60a5fa;
+}
+
+.menu a{
+display:block;
+text-decoration:none;
+color:#e5e7eb;
+padding:12px;
+border-radius:10px;
+margin-bottom:10px;
+transition:0.2s;
+}
+
+.menu a:hover{
+background:#3b82f6;
+}
+
+/* MAIN */
+
+.main{
+flex:1;
+padding:40px;
+overflow:auto;
+}
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.topbar h2{
+color:#60a5fa;
+}
+
+/* SETTINGS SECTIONS */
+
+.settings-section{
+background:var(--card);
+padding:25px;
+border-radius:16px;
+margin-bottom:25px;
+box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+.settings-section h3{
+margin-bottom:20px;
+color:#60a5fa;
+}
+
+.form-group{
+display:flex;
+flex-direction:column;
+margin-bottom:15px;
+}
+
+label{
+margin-bottom:6px;
+color:var(--muted);
+}
+
+input,select{
+padding:10px;
+border-radius:8px;
+border:none;
+background:#334155;
+color:white;
+outline:none;
+}
+
+/* SAVE BUTTON */
+
+.save-btn{
+margin-top:10px;
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:#3b82f6;
+color:white;
+cursor:pointer;
+font-weight:500;
+transition:0.2s;
+}
+
+.save-btn:hover{
+background:#2563eb;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">ATS</div>
+
+<div class="menu">
+<a href="dashboard.html">Dashboard</a>
+<a href="applicant.html">Applicants</a>
+<a href="mainpage.html">Resume Analyzer</a>
+<a href="interview.html">Interviews</a>
+<a href="analytics.html">Analytics</a>
+<a href="settings.html">Settings</a>
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="topbar">
+<h2>Settings</h2>
+</div>
+
+<!-- COMPANY SETTINGS -->
+
+<div class="settings-section">
+
+<h3>Company Information</h3>
+
+<div class="form-group">
+<label>Company Name</label>
+<input type="text" placeholder="Enter company name">
+</div>
+
+<div class="form-group">
+<label>Company Website</label>
+<input type="text" placeholder="https://company.com">
+</div>
+
+<div class="form-group">
+<label>Company Size</label>
+<select>
+<option>1-10 Employees</option>
+<option>10-50 Employees</option>
+<option>50-200 Employees</option>
+<option>200+ Employees</option>
+</select>
+</div>
+
+</div>
+
+<!-- HIRING SETTINGS -->
+
+<div class="settings-section">
+
+<h3>Hiring Preferences</h3>
+
+<div class="form-group">
+<label>Default Interview Duration</label>
+<select>
+<option>30 Minutes</option>
+<option>45 Minutes</option>
+<option>1 Hour</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Resume Format Accepted</label>
+<select>
+<option>PDF</option>
+<option>DOCX</option>
+<option>PDF & DOCX</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Automatic Resume Screening</label>
+<select>
+<option>Enabled</option>
+<option>Disabled</option>
+</select>
+</div>
+
+</div>
+
+<!-- NOTIFICATIONS -->
+
+<div class="settings-section">
+
+<h3>Notification Settings</h3>
+
+<div class="form-group">
+<label>Email Notifications</label>
+<select>
+<option>Enabled</option>
+<option>Disabled</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Interview Reminder Alerts</label>
+<select>
+<option>Enabled</option>
+<option>Disabled</option>
+</select>
+</div>
+
+</div>
+
+<!-- ACCOUNT SETTINGS -->
+
+<div class="settings-section">
+
+<h3>Account & Security</h3>
+
+<div class="form-group">
+<label>Email</label>
+<input type="email" placeholder="Enter email">
+</div>
+
+<div class="form-group">
+<label>Change Password</label>
+<input type="password" placeholder="Enter new password">
+</div>
+
+</div>
+
+<button class="save-btn">Save All Settings</button>
+
+</div>
+
+</body>
+</html>
