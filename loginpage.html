@@ -1,392 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>ResumeIQ | AI Resume ATS Scanner</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Careersfit — Signup</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
 *{
+box-sizing:border-box;
 margin:0;
 padding:0;
-box-sizing:border-box;
 font-family:'Inter',sans-serif;
 }
 
 body{
-background: radial-gradient(circle at top left,#0f172a,#020617 70%);
-color:#f1f5f9;
-}
-
-/* NAVBAR */
-
-.navbar{
-padding:22px 80px;
 display:flex;
-justify-content:space-between;
+justify-content:center;
 align-items:center;
-background:rgba(15,23,42,0.75);
-backdrop-filter:blur(14px);
-border-bottom:1px solid rgba(255,255,255,0.05);
+height:100vh;
+background:linear-gradient(135deg,#e0ecff,#dbeafe,#eff6ff);
+color:#1e293b;
 }
 
-.logo{
-font-size:26px;
-font-weight:800;
-background:linear-gradient(90deg,#3b82f6,#22d3ee);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.nav-links a{
-margin:0 25px;
-text-decoration:none;
-color:#94a3b8;
-font-weight:500;
-transition:.3s;
-}
-
-.nav-links a:hover{
-color:#38bdf8;
-}
-
-.auth-buttons a{
-margin-left:20px;
-padding:10px 22px;
-border-radius:10px;
-font-weight:600;
-text-decoration:none;
-transition:.3s;
-}
-
-.login-btn{
-border:1px solid rgba(59,130,246,0.5);
-color:#3b82f6;
-}
-
-.login-btn:hover{
-background:#3b82f6;
-color:white;
-}
-
-.signup-btn{
-background:linear-gradient(135deg,#3b82f6,#2563eb);
-color:white;
-box-shadow:0 8px 25px rgba(59,130,246,0.35);
-}
-
-/* HOW IT WORKS */
-
-.how-it-works{
-width:70%;
-margin:90px auto 40px;
-text-align:center;
-}
-
-.how-it-works h1{
-font-size:42px;
-margin-bottom:60px;
-background:linear-gradient(90deg,#3b82f6,#22d3ee);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.steps{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:40px;
-}
-
-.step{
-background:rgba(30,41,59,0.6);
-padding:35px;
-border-radius:20px;
-border:1px solid rgba(255,255,255,0.05);
-transition:.3s;
-}
-
-.step:hover{
-transform:translateY(-6px);
-box-shadow:0 12px 45px rgba(59,130,246,0.25);
-}
-
-.step h2{
-font-size:22px;
-color:#3b82f6;
-margin-bottom:15px;
-}
-
-.step p{
-color:#cbd5f5;
-line-height:1.6;
-}
-
-/* ANALYZER */
-
-.container{
-width:60%;
-margin:90px auto;
-padding:60px;
-background:rgba(30,41,59,0.65);
-backdrop-filter:blur(20px);
-border-radius:24px;
-border:1px solid rgba(255,255,255,0.06);
-box-shadow:0 0 80px rgba(59,130,246,0.08);
-}
-
-.container h1{
-text-align:center;
-font-size:42px;
-margin-bottom:45px;
-background:linear-gradient(90deg,#3b82f6,#22d3ee);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-/* UPLOAD BOX */
-
-.upload-box{
-border:2px dashed rgba(59,130,246,0.5);
-padding:50px;
+.signup-container{
+background:white;
+padding:40px 30px;
 border-radius:18px;
+width:100%;
+max-width:420px;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+h2{
 text-align:center;
-margin-bottom:30px;
-background:rgba(15,23,42,0.6);
-transition:.3s;
-cursor:pointer;
+margin-bottom:24px;
+color:#2563eb;
 }
 
-.upload-box:hover{
-background:rgba(59,130,246,0.08);
+.form-group{
+margin-bottom:20px;
+position:relative;
 }
 
-.upload-box p{
-font-size:18px;
-color:#cbd5e1;
+label{
+display:block;
+margin-bottom:6px;
+font-size:14px;
 }
 
-input[type="file"]{
-margin-top:20px;
+input{
 width:100%;
-color:#f1f5f9;
-}
-
-/* TEXTAREA */
-
-textarea{
-width:100%;
-height:170px;
-padding:18px;
-border-radius:14px;
-border:1px solid rgba(255,255,255,0.08);
-background:rgba(15,23,42,0.8);
-color:#f1f5f9;
-margin-top:20px;
-resize:none;
-}
-
-textarea:focus{
+padding:12px 40px 12px 12px;
+border-radius:10px;
+border:1px solid #e2e8f0;
+background:#f8fafc;
 outline:none;
-border-color:#3b82f6;
-box-shadow:0 0 20px rgba(59,130,246,0.35);
 }
 
-/* BUTTON */
-
-button{
-width:100%;
-margin-top:30px;
-padding:16px;
-border-radius:14px;
-border:none;
-font-weight:700;
-font-size:17px;
+.eye-icon{
+position:absolute;
+right:12px;
+top:38px;
 cursor:pointer;
-background:linear-gradient(135deg,#3b82f6,#2563eb);
+}
+
+.btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:#2563eb;
 color:white;
-box-shadow:0 10px 35px rgba(59,130,246,0.4);
-transition:.3s;
+font-weight:600;
+cursor:pointer;
 }
 
-button:hover{
-transform:translateY(-3px);
+.btn:hover{
+background:#1d4ed8;
 }
 
-/* RESULTS */
-
-.results{
-margin-top:60px;
-padding:40px;
-border-radius:20px;
-background:rgba(15,23,42,0.9);
-border:1px solid rgba(34,197,94,0.3);
+.login-link{
+text-align:center;
+margin-top:16px;
 }
 
-.results h2{
-font-size:32px;
-color:#22c55e;
+.login-link a{
+color:#2563eb;
+text-decoration:none;
+font-weight:600;
 }
 
-.results h3{
-margin-top:25px;
-color:#38bdf8;
-}
+/* DARK MODE */
 
-.results p{
-margin-top:10px;
+@media (prefers-color-scheme: dark){
+
+body{
+background:linear-gradient(135deg,#020617,#0f172a,#1e3a8a);
 color:#e2e8f0;
 }
 
-/* CREATE RESUME */
-
-.create-resume-section{
-width:60%;
-margin:70px auto 120px;
-padding:60px;
-text-align:center;
-background:linear-gradient(135deg,#1e293b,#0f172a);
-border-radius:24px;
-border:1px solid rgba(255,255,255,0.06);
-box-shadow:0 0 80px rgba(34,211,238,0.08);
+.signup-container{
+background:#0f172a;
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
-.create-resume-section h2{
-font-size:30px;
-color:#3b82f6;
-}
-
-.create-resume-section p{
-margin:20px 0 35px;
-color:#94a3b8;
-}
-
-.create-btn{
-padding:16px 50px;
-border-radius:14px;
-font-weight:700;
-text-decoration:none;
-background:linear-gradient(135deg,#22d3ee,#3b82f6);
+input{
+background:#020617;
+border:1px solid #1e293b;
 color:white;
-transition:.3s;
-box-shadow:0 15px 40px rgba(34,211,238,0.4);
-}
-
-.create-btn:hover{
-transform:translateY(-4px);
-box-shadow:0 25px 60px rgba(34,211,238,0.6);
-}
-
-/* MOBILE */
-
-@media(max-width:900px){
-
-.steps{
-grid-template-columns:1fr;
-}
-
-.container,
-.create-resume-section{
-width:90%;
-padding:35px;
-}
-
-.navbar{
-padding:20px 30px;
 }
 
 }
 
 </style>
+
 </head>
 
 <body>
 
-<nav class="navbar">
-<div class="logo">ResumeIQ</div>
+<div class="signup-container">
 
-<div class="nav-links">
-<a href="#">Home</a>
-<a href="#">Dashboard</a>
-<a href="#">How It Works</a>
-</div>
-
-<div class="auth-buttons">
-<a href="#" class="login-btn">Login</a>
-<a href="#" class="signup-btn">Sign Up</a>
-</div>
-</nav>
-
-<!-- HOW IT WORKS -->
-
-<div class="how-it-works">
-
-<h1>How ResumeIQ Works</h1>
-
-<div class="steps">
-
-<div class="step">
-<h2>1. Upload Resume</h2>
-<p>Upload your resume in seconds using our secure ATS scanner.</p>
-</div>
-
-<div class="step">
-<h2>2. Paste Job Description</h2>
-<p>Add the job description you are applying for.</p>
-</div>
-
-<div class="step">
-<h2>3. Get ATS Score</h2>
-<p>Our AI analyzes your resume and shows your ATS match score with suggestions.</p>
-</div>
-
-</div>
-</div>
-
-<!-- RESUME ANALYZER -->
-
-<div class="container">
-
-<h1>Resume ATS Scanner</h1>
+<h2>Create Account</h2>
 
 <form>
 
-<div class="upload-box">
-<p>📄 Drag & Drop Resume Here or Click to Upload</p>
-<input type="file" name="resume" required>
+<div class="form-group">
+<label>Full Name</label>
+<input type="text" placeholder="Enter your full name" required>
 </div>
 
-<textarea name="job_description" placeholder="Paste Job Description Here..." required></textarea>
+<div class="form-group">
+<label>Email</label>
+<input type="email" placeholder="Enter your email" required>
+</div>
 
-<button type="submit">Analyze Resume</button>
+<div class="form-group">
+<label>Password</label>
+<input type="password" id="signupPassword" placeholder="Create password" required>
+<span class="eye-icon" onclick="togglePassword()">👁</span>
+</div>
+
+<button class="btn">Log In</button>
 
 </form>
 
-<div class="results">
-
-<h2>Match Score: 0%</h2>
-
-<h3>Matched Skills</h3>
-<p>NONE</p>
-
-<h3>Missing Skills</h3>
-<p>NONE</p>
-
-<h3>Suggestions</h3>
-<p>No Suggestions here yet</p>
-
+<div class="login-link">
+<p>Already have an account?
+<a href="login.html">Sign In</a>
+</p>
 </div>
 
 </div>
 
-<!-- CREATE RESUME -->
+<script>
 
-<div class="create-resume-section">
-<h2>Don’t Have a Resume Yet?</h2>
-<p>Create a professional, ATS‑friendly resume in minutes.</p>
-<a href="createResume.html" class="create-btn">Create Resume</a>
-</div>
+function togglePassword(){
+
+let password=document.getElementById("signupPassword");
+
+if(password.type==="password"){
+password.type="text";
+}else{
+password.type="password";
+}
+
+}
+
+</script>
 
 </body>
 </html>
