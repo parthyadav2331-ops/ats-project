@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ATS Applicants</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+/* BLUE DARK THEME */
+
+:root{
+--bg:#0b1120;
+--sidebar:#0f172a;
+--card:#1e293b;
+--text:#e2e8f0;
+--muted:#94a3b8;
+--accent:#2563eb;
+}
+
+body{
+display:flex;
+height:100vh;
+background:var(--bg);
+color:var(--text);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:240px;
+background:var(--sidebar);
+color:white;
+padding:30px 20px;
+}
+
+.logo{
+font-size:22px;
+font-weight:600;
+margin-bottom:40px;
+color:#60a5fa;
+}
+
+.menu a{
+display:block;
+text-decoration:none;
+color:#e5e7eb;
+padding:12px;
+border-radius:10px;
+margin-bottom:10px;
+transition:0.2s;
+}
+
+.menu a:hover{
+background:#2563eb;
+}
+
+/* MAIN */
+
+.main{
+flex:1;
+padding:40px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.search{
+padding:10px 15px;
+border-radius:10px;
+border:none;
+background:var(--card);
+color:white;
+outline:none;
+}
+
+/* TABLE */
+
+.table{
+background:var(--card);
+border-radius:16px;
+padding:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:14px;
+text-align:left;
+}
+
+th{
+color:var(--muted);
+}
+
+tr{
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+/* STATUS BADGES */
+
+.status{
+padding:5px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:500;
+}
+
+.applied{
+background:#dbeafe;
+color:#1d4ed8;
+}
+
+.interview{
+background:#dcfce7;
+color:#15803d;
+}
+
+.rejected{
+background:#fee2e2;
+color:#b91c1c;
+}
+
+h2{
+color:#60a5fa;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">ATS</div>
+
+<div class="menu">
+<a href="dashboard.html">Dashboard</a>
+<a href="applicants.html">Applicants</a>
+<a href="mainpage.html">Resume Analyzer</a>
+<a href="interview.html">Interviews</a>
+<a href="analytics.html">Analytics</a>
+<a href="setting.html">Settings</a>
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="topbar">
+
+<h2>Applicants</h2>
+
+<input class="search" id="search" placeholder="Search candidates">
+
+</div>
+
+<div class="table">
+
+<table id="applicantTable">
+
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Position</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>ABC</td>
+<td>abc@email.com</td>
+<td>Frontend Developer</td>
+<td><span class="status applied">Applied</span></td>
+</tr>
+
+<tr>
+<td>XYZ</td>
+<td>xyz@email.com</td>
+<td>UI Designer</td>
+<td><span class="status interview">Interview</span></td>
+</tr>
+
+<tr>
+<td>PQR</td>
+<td>pqr@email.com</td>
+<td>Backend Developer</td>
+<td><span class="status rejected">Rejected</span></td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+/* SEARCH FUNCTION */
+
+document.getElementById("search").addEventListener("keyup",function(){
+
+let filter=this.value.toLowerCase();
+let rows=document.querySelectorAll("#applicantTable tbody tr");
+
+rows.forEach(row=>{
+row.style.display=row.innerText.toLowerCase().includes(filter)?"":"none";
+});
+
+});
+
+</script>
+
+</body>
+</html>
