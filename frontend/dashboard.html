@@ -48,26 +48,58 @@ body{display:flex;height:100vh;background:var(--bg);color:var(--text);}
   </div>
 </div>
 <script>
-(function(){
-  var links = document.querySelectorAll('.nav-link');
-  var page = window.location.pathname.split('/').pop() || 'dashboard.html';
-  links.forEach(function(a){
-    if(a.getAttribute('href') === page){
-      a.style.background='#3b82f6';
-      a.style.color='white';
+  
+const token = localStorage.getItem("token");
+
+if (!token) {
+  alert("Please login first");
+  window.location.href = "loginpage.html";
+}
+
+// 🚀 Load dashboard data
+async function loadDashboard() {
+  try {
+    const res = await fetch("http://localhost:5000/api/resume/insights", {
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Failed to load dashboard");
+      return;
     }
-  });
-})();
+
+    // ✅ Fill cards
+    document.getElementById("totalResumes").textContent = data.totalResumes;
+    document.getElementById("avgScore").textContent = data.averageScore + "%";
+    document.getElementById("bestScore").textContent = data.bestResume?.atsscore + "%";
+
+    // ✅ Last score box
+    document.querySelector(".score-value").textContent =
+      data.latestResume?.atsscore + "%";
+
+  } catch (err) {
+    console.error(err);
+    alert("Server error");
+  }
+}
+
+loadDashboard();
 </script>
+
+
 <div class="main">
   <div class="topbar">
     <h2>Dashboard</h2>
     <input class="search" placeholder="Search candidates...">
   </div>
   <div class="cards">
-    <div class="card"><p>Total Applicants</p><h3>132</h3></div>
-    <div class="card"><p>Interviews Scheduled</p><h3>24</h3></div>
-    <div class="card"><p>Jobs Posted</p><h3>8</h3></div>
+    <div class="card"><p>Total Applicants</p><h3 id="totalResumes">0</h3></div>
+    <div class="card"><p>Interviews Scheduled</p><h3 id="avgScore">0%</h3></div>
+    <div class="card"><p>Best Score</p><h3 id="bestScore">0%</h3></div>
   </div>
   <div class="upload">
     <h2>Quick Resume Check</h2>

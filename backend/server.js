@@ -1,53 +1,62 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+
+console.log("Server file started...");
 
 const app = express();
 
-// 🔐 IMPORT MIDDLEWARE (ADD THIS HERE)
-const authmiddleware = require("./middleware/authmiddleware");
+// DB import
+const { connectDB, pool } = require("./config/db");
 
-app.use(express.json());
+// 🔌 connect DB
+connectDB();
+
+// middleware
 app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 
-const pool = require('./db');
-const authRoutes = require('./routes/authRoutes');
+// 🔥 ADD AUTH ROUTES HERE
+const authRoutes = require("./routes/auth");
+app.use("/api/auth", authRoutes);
 
-console.log("Profile route loaded");
-
-const resumeRoutes = require("./routes/resumeRoutes");
-
-app.use("/resume", resumeRoutes);
-
-// Routes
-app.use("/auth", authRoutes);
-
-// ✅ Test route
-app.get('/', (req, res) => {
-  res.send('Backend is running 🚀');
+// routes
+app.get("/", (req, res) => {
+    res.send("Server is running 🚀");
 });
 
-// ✅ DB test
-app.get('/db-test', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT NOW()');
-    res.json(result.rows[0]);
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
+app.get("/test-db", async (req, res) => {
+    try {
+        const result = await pool.query("SELECT NOW()");
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
-
-// 🔐 ADD PROTECTED ROUTE HERE
-app.get("/profile", authmiddleware, (req, res) => {
-  res.json({
-    message: "Protected route accessed",
-    user: req.user
-  });
+const authMiddleware = require("./middleware/authmiddleware");
+app.get("/protected", authMiddleware, (req, res) => {
+    res.json({
+        message: "Access granted",
+        user: req.user
+    });
 });
 
+// 🔥 ADD RESUME ROUTES HERE
+const resumeRoutes = require("./routes/resume");
+app.use("/api/resume", resumeRoutes);
 
+const atsRoutes = require("./routes/ats");
+app.use("/api/ats", atsRoutes);
+
+const protectedRoutes = require('./routes/protected');
+app.use('/api/protected', protectedRoutes);
+
+// PORT
 const PORT = process.env.PORT || 5000;
+
+// start server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
