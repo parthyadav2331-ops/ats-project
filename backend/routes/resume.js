@@ -12,6 +12,23 @@ const calculateATSScore = require("../utils/ats");
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
+// ================= PUBLIC ANALYZE (no auth) =================
+router.post("/analyze", upload.single("resume"), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ message: "No file uploaded" });
+    const jobDescription = req.body.jobDescription || "";
+
+    const data = await pdfParse(req.file.buffer);
+    const extractedText = data.text;
+
+    const atsResult = calculateATSScore(extractedText, jobDescription);
+    res.json({ message: "Analyzed", ...atsResult });
+  } catch (err) {
+    console.error("ANALYZE ERROR:", err);
+    res.status(500).json({ message: "Analysis failed" });
+  }
+});
+
 // ================= UPLOAD + ATS =================
 router.post(
   "/upload",

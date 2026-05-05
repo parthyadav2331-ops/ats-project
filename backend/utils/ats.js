@@ -1,51 +1,71 @@
-const STOPWORDS = [
-  "the", "is", "and", "a", "to", "of", "in", "for", "on", "with", "at", "by"
-];
+const STOPWORDS = new Set([
+  "the", "is", "and", "a", "to", "of", "in", "for", "on", "with", "at", "by",
+  "an", "be", "or", "as", "it", "that", "this", "we", "you", "are", "was",
+  "were", "have", "has", "had", "but", "not", "from", "they", "their"
+]);
 
 const SKILLS = [
-  "javascript", "react", "node", "express", "mongodb",
-  "sql", "postgresql", "python", "java", "c++"
+  "javascript", "typescript", "react", "node", "node.js", "express", "mongodb",
+  "sql", "postgresql", "mysql", "python", "java", "c++", "c#", "go", "rust",
+  "html", "css", "tailwind", "redux", "next.js", "vue", "angular",
+  "docker", "kubernetes", "aws", "gcp", "azure", "ci/cd", "git",
+  "rest", "graphql", "api", "agile", "scrum",
+  "figma", "prototyping", "user research",
+  "power bi", "tableau", "excel", "pandas", "numpy", "machine learning"
 ];
 
-const cleanText = (text) => {
-  return text
+const tokenize = (text) =>
+  (text || "")
     .toLowerCase()
-    .replace(/[^\w\s]/g, "") // remove punctuation
+    .replace(/[^\w\s.+#/-]/g, " ")
     .split(/\s+/)
-    .filter(word => word && !STOPWORDS.includes(word));
-};
+    .filter((w) => w && !STOPWORDS.has(w));
+
+const containsSkill = (haystack, skill) => haystack.toLowerCase().includes(skill);
 
 const calculateATSScore = (resumeText, jobDescription) => {
-  const resumeWords = cleanText(resumeText);
-  const jdWords = cleanText(jobDescription);
+  const resumeTokens = new Set(tokenize(resumeText));
+  const jdTokens = tokenize(jobDescription);
+  const uniqueJD = [...new Set(jdTokens)];
 
-  // 🔹 Keyword match
-  let matchCount = 0;
-  jdWords.forEach(word => {
-    if (resumeWords.includes(word)) {
-      matchCount++;
-    }
-  });
+  const matched = uniqueJD.filter((w) => resumeTokens.has(w));
+  const keywordScore = uniqueJD.length
+    ? (matched.length / uniqueJD.length) * 100
+    : 0;
 
-  const keywordScore = (matchCount / jdWords.length) * 100;
+  const jdSkills = SKILLS.filter((s) => containsSkill(jobDescription, s));
+  const matchedSkills = jdSkills.filter((s) => containsSkill(resumeText, s));
+  const missingSkills = jdSkills.filter((s) => !matchedSkills.includes(s));
 
-  // 🔹 Skill match
-  let matchedSkills = [];
-  SKILLS.forEach(skill => {
-    if (resumeWords.includes(skill) && jobDescription.toLowerCase().includes(skill)) {
-      matchedSkills.push(skill);
-    }
-  });
+  const skillScore = jdSkills.length
+    ? (matchedSkills.length / jdSkills.length) * 100
+    : keywordScore;
 
-  const skillScore = (matchedSkills.length / SKILLS.length) * 100;
+  const finalScore = Math.round(0.6 * keywordScore + 0.4 * skillScore);
 
-  // 🔹 Final score (weighted)
-  const finalScore = Math.round((0.7 * keywordScore) + (0.3 * skillScore));
+  const suggestions = [];
+  if (missingSkills.length) {
+    suggestions.push(
+      `Add these missing skills if you have them: ${missingSkills.join(", ")}`
+    );
+  }
+  if (finalScore < 60) {
+    suggestions.push("Mirror more keywords from the job description verbatim.");
+  }
+  if (resumeText && resumeText.length < 500) {
+    suggestions.push("Resume looks short — add measurable achievements.");
+  }
+  if (!suggestions.length) {
+    suggestions.push("Strong match. Tailor the summary line to the role.");
+  }
 
   return {
     score: finalScore,
+    keywordScore: Math.round(keywordScore),
+    skillScore: Math.round(skillScore),
     matchedSkills,
-    missingSkills: SKILLS.filter(skill => !matchedSkills.includes(skill))
+    missingSkills,
+    suggestions: suggestions.join(" "),
   };
 };
 
