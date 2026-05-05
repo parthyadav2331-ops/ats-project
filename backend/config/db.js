@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const { Pool } = require("pg");
 require("dotenv").config();
 
@@ -9,11 +11,18 @@ const pool = new Pool({
     port: process.env.DB_PORT,
 });
 
-// 🔥 safe test function (no crash)
+const runMigrations = async () => {
+    const schemaPath = path.join(__dirname, "..", "db", "schema.sql");
+    const sql = fs.readFileSync(schemaPath, "utf8");
+    await pool.query(sql);
+    console.log("Schema migrated ✅");
+};
+
 const connectDB = async () => {
     try {
         await pool.query("SELECT 1");
         console.log("Database connected ✅");
+        await runMigrations();
     } catch (err) {
         console.error("Database connection failed ❌:", err.message);
     }

@@ -2,234 +2,144 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Advanced Resume Builder</title>
+<title>Resume Builder | CareersFit</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: "Segoe UI", sans-serif;
-}
-
-body{
-  background: linear-gradient(135deg,#020617,#0f172a,#1e293b);
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  padding:30px;
-  color:white;
-}
-
-.wrapper{
-  width:95%;
-  max-width:1400px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
-}
-
-.form-section{
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(15px);
-  padding:35px;
-  border-radius:20px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.5);
-}
-
-.preview-section{
-  background:white;
-  color:black;
-  padding:35px;
-  border-radius:20px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.5);
-  min-height:600px;
-}
-
-h1{
-  margin-bottom:20px;
-  font-size:28px;
-  color:#38bdf8;
-  text-align:center;
-}
-
-label{
-  font-size:14px;
-  margin-top:10px;
-  display:block;
-}
-
-input, textarea{
-  width:100%;
-  padding:12px;
-  margin-top:6px;
-  margin-bottom:15px;
-  border-radius:8px;
-  border:none;
-  background: rgba(255,255,255,0.08);
-  color:white;
-  font-size:14px;
-}
-
-textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-input:focus,textarea:focus{
-  outline:none;
-  box-shadow:0 0 8px #38bdf8;
-}
-
-button{
-  width:100%;
-  padding:14px;
-  background:linear-gradient(135deg,#3b82f6,#06b6d4);
-  border:none;
-  border-radius:10px;
-  font-size:16px;
-  font-weight:bold;
-  color:white;
-  cursor:pointer;
-  transition:.3s;
-}
-
-button:hover{
-  transform:scale(1.05);
-}
-
-.preview-name{
-  font-size:28px;
-  font-weight:bold;
-}
-
-.preview-contact{
-  color:#555;
-  margin-bottom:15px;
-}
-
-.section-title{
-  margin-top:20px;
-  font-weight:bold;
-  border-bottom:2px solid #ddd;
-  padding-bottom:5px;
-}
-
-.skill-tag{
-  display:inline-block;
-  background:#3b82f6;
-  color:white;
-  padding:5px 10px;
-  border-radius:6px;
-  margin:4px;
-  font-size:12px;
-}
-
-@media(max-width:900px){
-  .wrapper{
-    grid-template-columns:1fr;
-  }
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif;}
+body{background:linear-gradient(135deg,#020617,#0f172a,#1e293b);min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:30px;color:white;}
+.wrapper{width:95%;max-width:1400px;display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+.form-section{background:rgba(255,255,255,0.05);backdrop-filter:blur(15px);padding:35px;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.5);}
+.preview-section{background:white;color:black;padding:35px;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.5);min-height:600px;}
+h1{margin-bottom:20px;font-size:28px;color:#38bdf8;text-align:center;}
+label{font-size:14px;margin-top:10px;display:block;}
+input,textarea{width:100%;padding:12px;margin-top:6px;margin-bottom:15px;border-radius:8px;border:none;background:rgba(255,255,255,0.08);color:white;font-size:14px;}
+textarea{min-height:90px;resize:vertical;}
+input:focus,textarea:focus{outline:none;box-shadow:0 0 8px #38bdf8;}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;}
+button{padding:14px;background:linear-gradient(135deg,#3b82f6,#06b6d4);border:none;border-radius:10px;font-size:15px;font-weight:bold;color:white;cursor:pointer;transition:.3s;}
+button:hover{transform:scale(1.03);}
+button.secondary{background:linear-gradient(135deg,#10b981,#059669);}
+.preview-name{font-size:28px;font-weight:bold;}
+.preview-contact{color:#555;margin-bottom:15px;}
+.section-title{margin-top:20px;font-weight:bold;border-bottom:2px solid #ddd;padding-bottom:5px;}
+.skill-tag{display:inline-block;background:#3b82f6;color:white;padding:5px 10px;border-radius:6px;margin:4px;font-size:12px;}
+.msg{margin-top:14px;font-size:13px;text-align:center;}
+.msg.ok{color:#22c55e;} .msg.err{color:#ef4444;}
+@media(max-width:900px){.wrapper{grid-template-columns:1fr;}}
 </style>
 </head>
-
 <body>
 
 <div class="wrapper">
-
   <div class="form-section">
-
     <h1><i class="fa-solid fa-pen"></i> Resume Builder</h1>
-
-    <form method="POST">
-
-      <label>Name</label>
-      <input id="name" name="name" placeholder="John Doe">
-
-      <label>Email</label>
-      <input id="email" name="email" placeholder="john@email.com">
-
-      <label>Phone</label>
-      <input id="phone" name="phone" placeholder="+91 9876543210">
-
-      <label>Skills (comma separated)</label>
-      <textarea id="skills" name="skills" placeholder="Python, Machine Learning, SQL"></textarea>
-
-      <label>Education</label>
-      <textarea id="education" name="education"></textarea>
-
-      <label>Experience</label>
-      <textarea id="experience" name="experience"></textarea>
-
-      <button type="submit">
-        <i class="fa-solid fa-file-arrow-down"></i> Generate Resume
-      </button>
-
-    </form>
-
+    <label>Name</label>
+    <input id="name" placeholder="John Doe">
+    <label>Email</label>
+    <input id="email" placeholder="john@email.com">
+    <label>Phone</label>
+    <input id="phone" placeholder="+91 9876543210">
+    <label>Skills (comma separated)</label>
+    <textarea id="skills" placeholder="Python, Machine Learning, SQL"></textarea>
+    <label>Education</label>
+    <textarea id="education"></textarea>
+    <label>Experience</label>
+    <textarea id="experience"></textarea>
+    <div class="actions">
+      <button onclick="downloadPDF()"><i class="fa-solid fa-file-arrow-down"></i> Download PDF</button>
+      <button class="secondary" onclick="saveAsResume()"><i class="fa-solid fa-cloud-arrow-up"></i> Save to Account</button>
+    </div>
+    <div class="msg" id="msg"></div>
   </div>
 
   <div class="preview-section">
-
     <div class="preview-name" id="pname">Your Name</div>
     <div class="preview-contact" id="pcontact">email | phone</div>
-
     <div class="section-title">Skills</div>
     <div id="pskills">Your skills will appear here</div>
-
     <div class="section-title">Education</div>
     <div id="pedu">Your education will appear here</div>
-
     <div class="section-title">Experience</div>
     <div id="pexp">Your experience will appear here</div>
-
   </div>
-
 </div>
 
+<script src="js/api.js"></script>
 <script>
-const name = document.getElementById("name");
-const email = document.getElementById("email");
-const phone = document.getElementById("phone");
-const skills = document.getElementById("skills");
-const education = document.getElementById("education");
-const experience = document.getElementById("experience");
+const ids = ['name','email','phone','skills','education','experience'];
+const el = (id) => document.getElementById(id);
 
-name.addEventListener("input", () => {
-  document.getElementById("pname").innerText = name.value || "Your Name";
-});
+function updatePreview(){
+  el('pname').innerText = el('name').value || 'Your Name';
+  el('pcontact').innerText = (el('email').value || 'email') + ' | ' + (el('phone').value || 'phone');
+  const skillList = el('skills').value.split(',').map(s=>s.trim()).filter(Boolean);
+  el('pskills').innerHTML = skillList.length
+    ? skillList.map(s => `<span class="skill-tag">${s}</span>`).join('')
+    : 'Your skills will appear here';
+  el('pedu').innerText = el('education').value || 'Your education will appear here';
+  el('pexp').innerText = el('experience').value || 'Your experience will appear here';
+}
+ids.forEach(id => el(id).addEventListener('input', updatePreview));
 
-function updateContact() {
-  document.getElementById("pcontact").innerText =
-    (email.value || "email") + " | " + (phone.value || "phone");
+function buildPDF(){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit:'pt', format:'a4' });
+  const margin = 48;
+  let y = margin;
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(22);
+  doc.text(el('name').value || 'Your Name', margin, y); y += 24;
+
+  doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor(90);
+  doc.text(`${el('email').value || ''}  |  ${el('phone').value || ''}`, margin, y);
+  y += 22; doc.setTextColor(0);
+
+  const writeSection = (title, body) => {
+    doc.setFont('helvetica','bold'); doc.setFontSize(13);
+    doc.text(title, margin, y); y += 6;
+    doc.setLineWidth(0.7); doc.line(margin, y, 595 - margin, y); y += 14;
+    doc.setFont('helvetica','normal'); doc.setFontSize(11);
+    const text = body || '—';
+    const lines = doc.splitTextToSize(text, 595 - margin*2);
+    doc.text(lines, margin, y); y += lines.length * 14 + 8;
+  };
+
+  writeSection('Skills', el('skills').value);
+  writeSection('Education', el('education').value);
+  writeSection('Experience', el('experience').value);
+
+  return doc;
 }
 
-email.addEventListener("input", updateContact);
-phone.addEventListener("input", updateContact);
+function downloadPDF(){
+  const doc = buildPDF();
+  doc.save(`${(el('name').value || 'resume').replace(/\s+/g,'_')}.pdf`);
+}
 
-skills.addEventListener("input", () => {
-  let skillHTML = "";
-  let skillList = skills.value.split(",");
-  skillList.forEach(skill => {
-    if(skill.trim()!=""){
-      skillHTML += `<span class="skill-tag">${skill.trim()}</span>`;
-    }
-  });
-  document.getElementById("pskills").innerHTML = skillHTML || "Your skills will appear here";
-});
+async function saveAsResume(){
+  const msg = el('msg');
+  if(!getToken()){
+    msg.textContent = 'Sign in first to save resumes to your account.';
+    msg.className = 'msg err';
+    return;
+  }
+  msg.textContent = 'Generating + uploading…'; msg.className = 'msg';
+  try {
+    const doc = buildPDF();
+    const blob = doc.output('blob');
+    const fd = new FormData();
+    fd.append('resume', blob, `${(el('name').value || 'resume').replace(/\s+/g,'_')}.pdf`);
+    fd.append('jobDescription', '');
 
-education.addEventListener("input", () => {
-  document.getElementById("pedu").innerText = education.value || "Your education will appear here";
-});
-
-experience.addEventListener("input", () => {
-  document.getElementById("pexp").innerText = experience.value || "Your experience will appear here";
-});
+    const data = await api('/api/resume/upload', { method: 'POST', body: fd });
+    msg.textContent = `Saved ✅ Resume #${data.resume.id}`;
+    msg.className = 'msg ok';
+  } catch(err){
+    msg.textContent = 'Failed: ' + err.message;
+    msg.className = 'msg err';
+  }
+}
 </script>
-z
 </body>
-
 </html>

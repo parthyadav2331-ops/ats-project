@@ -165,52 +165,43 @@ background:#020617;
   </div>
 </div>
 
-<!-- ✅ SCRIPT -->
+<script src="js/api.js"></script>
 <script>
 document.getElementById('resumeForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
   const fileInput = document.getElementById('resumeFile');
   const jobDesc = document.getElementById('jobDesc').value;
+  const resultsBox = document.getElementById('resultsBox');
 
-  if (!fileInput.files[0]) {
-    alert("Please upload a resume");
-    return;
-  }
+  if (!fileInput.files[0]) { alert("Please upload a resume"); return; }
 
   const formData = new FormData();
   formData.append('resume', fileInput.files[0]);
   formData.append('jobDescription', jobDesc);
 
+  resultsBox.innerHTML = '<h2>Analyzing…</h2>';
+
   try {
-    const res = await fetch('http://localhost:5000/api/resume/analyze', {
-      method: 'POST',
-      body: formData
-    });
+    const data = await api('/api/resume/analyze', { method: 'POST', body: formData });
 
-    const data = await res.json();
+    const matched = (data.matchedSkills || []).join(', ') || '—';
+    const missing = (data.missingSkills || []).join(', ') || '—';
 
-    if (!res.ok) {
-      alert(data.message || "Analysis failed");
-      return;
-    }
-
-    document.getElementById('resultsBox').innerHTML = `
+    resultsBox.innerHTML = `
       <h2>Match Score: ${data.score}%</h2>
-
-      <h3>Matched Skills</h3>
-      <p>${data.matchedSkills.join(', ')}</p>
-
-      <h3>Missing Skills</h3>
-      <p>${data.missingSkills.join(', ')}</p>
-
-      <h3>Suggestions</h3>
-      <p>${data.suggestions}</p>
+      <p style="color:#94a3b8;margin-top:6px;">
+        Keyword match: ${data.keywordScore}% · Skill match: ${data.skillScore}%
+      </p>
+      <h3 style="margin-top:18px;">Matched Skills</h3>
+      <p>${matched}</p>
+      <h3 style="margin-top:14px;">Missing Skills</h3>
+      <p>${missing}</p>
+      <h3 style="margin-top:14px;">Suggestions</h3>
+      <p>${data.suggestions || '—'}</p>
     `;
-
   } catch (err) {
-    console.error(err);
-    alert("Server error");
+    resultsBox.innerHTML = `<h2 style="color:#ef4444;">Analysis failed</h2><p>${err.message}</p>`;
   }
 });
 </script>

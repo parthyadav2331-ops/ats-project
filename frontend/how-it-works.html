@@ -49,20 +49,14 @@ body{display:flex;height:100vh;background:var(--bg);color:var(--text);}
     <a href="user-profile.html" class="nav-link">👤 My Profile</a>
   </div>
   <div style="margin-top:auto;padding-top:20px;">
-    <a href="loginpage.html" style="display:block;text-decoration:none;color:#94a3b8;padding:12px;border-radius:10px;font-size:14px;" onmouseover="this.style.background='#ef4444';this.style.color='white'" onmouseout="this.style.background='';this.style.color='#94a3b8'">🚪 Logout</a>
+    <a href="#" onclick="logout();return false;" style="display:block;text-decoration:none;color:#94a3b8;padding:12px;border-radius:10px;font-size:14px;">🚪 Logout</a>
   </div>
 </div>
+<script src="js/api.js"></script>
 <script>
-(function(){
-  var links = document.querySelectorAll('.nav-link');
-  var page = window.location.pathname.split('/').pop() || 'how-it-works.html';
-  links.forEach(function(a){
-    if(a.getAttribute('href') === page){
-      a.style.background='#10b981';
-      a.style.color='white';
-    }
-  });
-})();
+if(!requireAuth(['user'])) { /* redirected */ }
+document.querySelectorAll('.nav-link').forEach(a => a.dataset.activeBg = '#10b981');
+highlightNav();
 </script>
 <div class="main">
   <div class="topbar"><h2>How It Works</h2></div>
