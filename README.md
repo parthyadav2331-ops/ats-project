@@ -28,7 +28,7 @@ Full-stack hiring platform with role-based flows for **job seekers** and **recru
 
 ```bash
 cd backend
-cp .env.example .env       # then edit with your Postgres creds
+cp .env.example .env       # then edit — see "Database" below
 npm install
 npm run dev
 ```
@@ -36,6 +36,29 @@ npm run dev
 The server starts on `http://localhost:5001`, auto-runs `db/schema.sql`, and serves the frontend at `/`. Open <http://localhost:5001/loginpage.html>.
 
 > macOS note: port 5000 is hijacked by the AirPlay Receiver. Default is 5001; override via `PORT=` in `.env`.
+
+### Database
+
+Two options — set **one** of them in `.env`.
+
+**Option A (recommended): Neon serverless Postgres**
+
+1. Sign up at <https://neon.tech> (free tier is enough for development).
+2. Create a project → grab the **connection string** from the dashboard
+   (it looks like `postgresql://user:pass@ep-xyz.us-east-2.aws.neon.tech/dbname?sslmode=require`).
+3. Paste it into `backend/.env` as:
+   ```
+   DATABASE_URL=postgresql://user:pass@host.neon.tech/dbname?sslmode=require
+   ```
+4. `npm run dev`. The schema is created automatically on first boot.
+
+**Option B: Local Postgres**
+
+Leave `DATABASE_URL` unset and fill in `DB_HOST`, `DB_PORT`, `DB_USER`,
+`DB_PASSWORD`, `DB_NAME` instead.
+
+When `DATABASE_URL` is set, SSL is enabled automatically (Neon requires it)
+and the individual `DB_*` vars are ignored.
 
 ## API
 
