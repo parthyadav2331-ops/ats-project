@@ -89,7 +89,7 @@ input:focus,select:focus{border-color:#10b981;}
       <div class="section">
         <h3>Career Details</h3>
         <div class="form-row">
-          <div class="form-group"><label>Current Role</label><input type="text" id="current_role" placeholder="e.g. Frontend Developer"></div>
+          <div class="form-group"><label>Current Role</label><input type="text" id="headline" placeholder="e.g. Frontend Developer"></div>
           <div class="form-group"><label>Experience</label>
             <select id="experience">
               <option value="">Select…</option>
@@ -145,7 +145,7 @@ async function load(){
     const s = data.stats || {};
 
     document.getElementById('hName').textContent = u.name || '—';
-    document.getElementById('hRole').textContent = p.current_role || 'Job Seeker';
+    document.getElementById('hRole').textContent = p.headline || 'Job Seeker';
     document.getElementById('hLoc').textContent = p.location || '—';
 
     document.getElementById('sBest').textContent = (s.best_score || 0) + '%';
@@ -157,7 +157,7 @@ async function load(){
     document.getElementById('phone').value = p.phone || '';
     document.getElementById('location').value = p.location || '';
     document.getElementById('linkedin').value = p.linkedin || '';
-    document.getElementById('current_role').value = p.current_role || '';
+    document.getElementById('headline').value = p.headline || '';
     document.getElementById('experience').value = p.experience || '';
     document.getElementById('expected_salary').value = p.expected_salary || '';
     skills = p.skills || [];
@@ -179,7 +179,7 @@ async function saveProfile(){
         phone: document.getElementById('phone').value.trim(),
         location: document.getElementById('location').value.trim(),
         linkedin: document.getElementById('linkedin').value.trim(),
-        current_role: document.getElementById('current_role').value.trim(),
+        headline: document.getElementById('headline').value.trim(),
         experience: document.getElementById('experience').value,
         expected_salary: document.getElementById('expected_salary').value.trim(),
         skills

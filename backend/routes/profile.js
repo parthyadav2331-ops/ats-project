@@ -41,7 +41,7 @@ router.get("/", auth, async (req, res) => {
 
 router.put("/", auth, async (req, res) => {
   const {
-    name, phone, location, linkedin, current_role,
+    name, phone, location, linkedin, headline,
     experience, expected_salary, skills
   } = req.body;
   try {
@@ -49,14 +49,14 @@ router.put("/", auth, async (req, res) => {
       await pool.query("UPDATE users SET name = $1 WHERE id = $2", [name, req.user.id]);
     }
     const result = await pool.query(
-      `INSERT INTO profiles (user_id, phone, location, linkedin, current_role,
+      `INSERT INTO profiles (user_id, phone, location, linkedin, headline,
                              experience, expected_salary, skills, updated_at)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,NOW())
        ON CONFLICT (user_id) DO UPDATE SET
          phone = EXCLUDED.phone,
          location = EXCLUDED.location,
          linkedin = EXCLUDED.linkedin,
-         current_role = EXCLUDED.current_role,
+         headline = EXCLUDED.headline,
          experience = EXCLUDED.experience,
          expected_salary = EXCLUDED.expected_salary,
          skills = EXCLUDED.skills,
@@ -64,7 +64,7 @@ router.put("/", auth, async (req, res) => {
        RETURNING *`,
       [
         req.user.id, phone || null, location || null, linkedin || null,
-        current_role || null, experience || null, expected_salary || null,
+        headline || null, experience || null, expected_salary || null,
         parseSkills(skills)
       ]
     );

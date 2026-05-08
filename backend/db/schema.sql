@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS profiles (
   phone VARCHAR(50),
   location VARCHAR(255),
   linkedin VARCHAR(255),
-  current_role VARCHAR(255),
+  headline VARCHAR(255),
   experience VARCHAR(50),
   expected_salary VARCHAR(100),
   skills TEXT[],
